@@ -29,7 +29,6 @@ public class RockPaperScissorsGame {
 
     }
 
-
     public static void playerVSPlayer(){
         Character playerOne = new Human(); //Made Character for DRY-ness seen with battle function
         Character playerTwo = new Human();
@@ -50,10 +49,10 @@ public class RockPaperScissorsGame {
         System.out.println(p2.getName() + ", make a choice: rock, paper, scissors");
         p2.setChoice(p2.makeChoice());
 
-        if(!p1.getChoice().equals("rock") || !p1.getChoice().equals("paper") || !p1.getChoice().equals("scissors") || !p2.getChoice().equals("rock") || !p2.getChoice().equals("paper") || !p2.getChoice().equals("scissors")){
-            System.out.println("A player made an invalid choice, go again");
-            pvpBattle( p1, p2);
-        }
+//        if(!p1.getChoice().equals("rock") || !p1.getChoice().equals("paper") || !p1.getChoice().equals("scissors") || !p2.getChoice().equals("rock") || !p2.getChoice().equals("paper") || !p2.getChoice().equals("scissors")){
+//            System.out.println("A player made an invalid choice, go again");
+//            pvpBattle( p1, p2);
+//        }
         battle(p1.getChoice(), p2.getChoice(), p1, p2);
 
     }
@@ -76,22 +75,35 @@ public class RockPaperScissorsGame {
 
     }
 
-
     //make this return a string -- who won, their choice as well, and in main add the return of this func to an arraylist for history
     //also need to add invalid input exception
     public static void battle(String player1Move, String player2Move, Character player1, Character player2){
-        System.out.println (player1.getName() + " has chosen " + player1Move + ", while " + player2.getName() + " has chosen " + player2Move);
+        boolean anotherRound = true;
+        Scanner input = new Scanner(System.in);
 
-        if(player1Move.equals(player2Move)){
-            System.out.println("The same move was chosen");
-        }
-        else if ((player1Move.equals("rock") && player2Move.equals("paper")) || (player1Move.equals("scissors") && player2Move.equals("rock")) || (player1Move.equals("paper") && player2Move.equals("scissors"))){
-            System.out.println( player2.getName() + " has won!");
-        }
-        else if ((player2Move.equals("rock") && player1Move.equals("paper")) || (player2Move.equals("scissors") && player1Move.equals("rock")) || (player2Move.equals("paper") && player1Move.equals("scissors"))){
-            System.out.println( player1.getName() + " has won!");
-        }
+            System.out.println(player1.getName() + " has chosen " + player1Move + ", while " + player2.getName() + " has chosen " + player2Move);
 
+            if (player1Move.equals(player2Move)) {
+                System.out.println("The same move was chosen");
+            } else if ((player1Move.equals("rock") && player2Move.equals("paper")) || (player1Move.equals("scissors") && player2Move.equals("rock")) || (player1Move.equals("paper") && player2Move.equals("scissors"))) {
+                System.out.println(player2.getName() + " has won!");
+            } else if ((player2Move.equals("rock") && player1Move.equals("paper")) || (player2Move.equals("scissors") && player1Move.equals("rock")) || (player2Move.equals("paper") && player1Move.equals("scissors"))) {
+                System.out.println(player1.getName() + " has won!");
+            }
+
+            System.out.println("Another round? Type: 'y' or 'n");
+            String answer = input.nextLine();
+            if(answer.toLowerCase().equals("y")){
+                if(player2.getName().equals("CPU")){
+                    pvcBattle(player1, player2);
+                }
+                else{
+                    pvpBattle(player1, player2);
+                }
+            }
+            else{
+                System.out.println("End of Match!");
+            }
     }
 
 
