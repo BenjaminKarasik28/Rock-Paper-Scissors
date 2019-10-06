@@ -1,16 +1,18 @@
 package GA.Project.Players;
 
 public abstract class Character {
-    protected int lives;
+
     protected String name;
-    protected String [] choices = {"rock", "paper", "scissors"};
+    protected String [] choices ={"rock", "paper", "scissors"};
+    String choice;
 
     public Character() {}
 
-    public Character(int lives, String[] choices, String name) {
-        this.lives = lives;
+    public Character( String[] choices, String name, String choice) {
+
         this.choices = choices;
         this.name = name;
+        this.choice = choice;
     }
 
     public String getName() {
@@ -21,23 +23,19 @@ public abstract class Character {
         this.name = name;
     }
 
-    public int getLives() {
-        return lives;
-    }
-
-    public void setLives(int lives) {
-        this.lives = lives;
-    }
-
     public String[] getChoices() {
-        return choices;
+        return this.choices;
     }
 
-    public void setChoices(String[] choices) {
-        this.choices = choices;
+    public String getChoice() {
+        return choice;
     }
 
-    protected abstract String makeChoice(); //returns something from choices either randomly if CPU or by user
+    public void setChoice(String choice) {
+        this.choice = choice;
+    }
+
+    public abstract String makeChoice(); //returns something from choices either randomly if CPU or by user
 
 
 
