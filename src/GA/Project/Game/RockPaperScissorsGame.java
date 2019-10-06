@@ -40,10 +40,10 @@ public class RockPaperScissorsGame {
 
         pvpBattle(playerOne, playerTwo);
 
-
-
     };
 
+    //make this return a string -- who won, their choice as well, and in main add the return of this func to an arraylist for history
+    //also need to add invalid input exception
     public static void battle(String player1Move, String player2Move, Character player1, Character player2){
         System.out.println (player1.getName() + " has chosen " + player1Move + ", while " + player2.getName() + " has chosen " + player2Move);
 
@@ -56,20 +56,23 @@ public class RockPaperScissorsGame {
         else if ((player2Move.equals("rock") && player1Move.equals("paper")) || (player2Move.equals("scissors") && player1Move.equals("rock")) || (player2Move.equals("paper") && player1Move.equals("scissors"))){
             System.out.println( player1.getName() + " has won!");
         }
+
     }
 
 
     public static void pvpBattle(Character p1, Character p2){
-        System.out.println(p1.getName() + " Make a choice: rock, paper, scissors");
+        System.out.println(p1.getName() + ", make a choice: rock, paper, scissors");
         p1.setChoice(p1.makeChoice());
-        System.out.println(p2.getName() + " Make a choice: rock, paper, scissors");
+        System.out.println(p2.getName() + ", make a choice: rock, paper, scissors");
         p2.setChoice(p2.makeChoice());
 
+        if(!p1.getChoice().equals("rock") || !p1.getChoice().equals("paper") || !p1.getChoice().equals("scissors") || !p2.getChoice().equals("rock") || !p2.getChoice().equals("paper") || !p2.getChoice().equals("scissors")){
+            System.out.println("A player made an invalid choice, go again");
+            pvpBattle( p1, p2);
+        }
         battle(p1.getChoice(), p2.getChoice(), p1, p2);
 
     }
-
-
 
 
     public static void playerVSCPU(){
@@ -91,8 +94,9 @@ public class RockPaperScissorsGame {
                 case "quit":
                     quit();
                     break;
-                case "":
+                default:
                     System.out.println("Enter a valid option");
+                    menu();
             }
 
     }

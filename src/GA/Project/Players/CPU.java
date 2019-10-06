@@ -1,18 +1,18 @@
 package GA.Project.Players;
 
-public class CPU extends Character {
+import java.util.Random;
 
-    public CPU(String name){
+public class CPU extends Character {
+    private Random choiceGenerator;
+
+    public CPU(){
         this.name = "CPU";
     }
     @Override
-    public String makeChoice() {
-        return null;
-    }
+    public String makeChoice() throws ArrayIndexOutOfBoundsException {
+        choiceGenerator = new Random();
+        int index = choiceGenerator.nextInt(choices.length);
+        return choices[index];
 
-
-    @Override
-    public String getName(){
-        return "CPU";
     }
 }
