@@ -1,34 +1,67 @@
 package GA.Project.Game;
 
+
+import java.io.IOException;
 import java.util.Scanner;
 
-public class RockPaperScissorsGame implements Game {
+public class RockPaperScissorsGame {
 
-    private Scanner menuChoice = new Scanner(System.in);
-    @Override
-    public void play() {
+    private static Scanner choice = new Scanner(System.in);
+
+    public static void play() {
+        System.out.println("Do you want to play against a Computer or another person?\nType c for computer or p for person");
+        String input = choice.nextLine().toLowerCase();
+
+        if(input.equals("c")){
+
+        }
+    }
+
+    public static void playerVSPlayer(){
+        System.out.println("in pvp");
+    };
+    public static void playerVSCPU(){
+        System.out.println("in pvc");
+    };
+
+
+    public static void menu() throws IOException {
+        System.out.println("Welcome to Rock, Paper, Scissors! \nMAIN MENU \n======\n 1. Type 'play' to  play \n 2. Type 'history' to view your game history.\n 3. Type 'quit' to stop playing. ");
+        String input = choice.nextLine().toLowerCase();
+
+            switch (input){
+                case "play":
+                    play();
+                    break;
+                case "history":
+                    history();
+                    break;
+                case "quit":
+                    quit();
+                    break;
+                case "":
+                    System.out.println("Enter a valid option");
+            }
 
     }
 
-    @Override
-    public void menu() {
-        System.out.println("Welcome to Rock, Paper, Scissors! \nMAIN MENU \n====\n 1. Type: 'play' to  play \n 2. ");
 
-
-
-        String input = menuChoice.nextLine();
-
+    public static void history() {
+        System.out.println("in history successfully");
 
     }
 
-    @Override
-    public void history() {
 
+    public static void quit() {
+        System.out.println("in quit successfully");
     }
 
-    @Override
-    public void quit() {
+    public static void main(String[] args) {
+        try {
+            menu();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
-
 }

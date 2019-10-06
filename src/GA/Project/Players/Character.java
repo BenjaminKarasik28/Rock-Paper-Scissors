@@ -2,13 +2,23 @@ package GA.Project.Players;
 
 public abstract class Character {
     protected int lives;
+    protected String name;
     protected String [] choices = {"rock", "paper", "scissors"};
 
     public Character() {}
 
-    public Character(int lives, String[] choices) {
+    public Character(int lives, String[] choices, String name) {
         this.lives = lives;
         this.choices = choices;
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public int getLives() {
