@@ -34,15 +34,23 @@ public class RockPaperScissorsGame {
         }
     }
 
-//    public static boolean nameAvailability(String nameToCheck, Character player){
-//        if(!playerDuplicateCheck.contains(nameToCheck)) {
-//            playerDuplicateCheck.add(nameToCheck);
-//            player.setName(nameToCheck);
-//            return true;
-//        }
-//        else return false;
-//
-//    }
+    //allows only one name per player per session so player can see their game logs
+    //assigns name to player if that name isn't in the session MAP
+    public static void checkIfNameIsThere(String nameToCheck, Character player){
+        boolean flag = false;
+        while(!flag) {
+            if (!players.containsKey(nameToCheck)) {
+                players.put(nameToCheck, player);
+                flag = true;
+            } else {
+                System.out.println("This name is already in the database, choose a different one\nType a new name here:");
+                nameToCheck = choice.nextLine();
+
+            }
+        }
+        player.setName(nameToCheck);
+
+    }
     public static void playerVSPlayer(){
 
         Character playerOne = new Human(); //Made Character for DRY-ness seen with battle function
@@ -53,18 +61,13 @@ public class RockPaperScissorsGame {
 
         System.out.println("You have chosen Player vs. Player!\nEnter player 1's name: ");
         String name = choice.nextLine();
-//
-//        if(!nameAvailability(name,playerOne)){
-//            System.out.println("This name is already chosen, type a different one now");
-//            name = choice.nextLine();
-//            nameAvailability(name, playerOne);
-//        };
-        playerOne.setName(name);
+        checkIfNameIsThere(name, playerOne);
 
         System.out.println("Enter player 2's name: ");
-        playerTwo.setName(choice.nextLine());
-        System.out.println("Your two players are: " + playerOne.getName() + " and " + playerTwo.getName());
+        name = choice.nextLine();
+        checkIfNameIsThere(name, playerTwo);
 
+        System.out.println("Your two players are: " + playerOne.getName() + " and " + playerTwo.getName());
 
         pvpBattle(playerOne, playerTwo);
 
@@ -91,7 +94,9 @@ public class RockPaperScissorsGame {
         computer.listsInializier();
 
         System.out.println("You have chosen Player vs. Computer!\nEnter your name: ");
-        player.setName(choice.nextLine());
+        String name = choice.nextLine();
+        checkIfNameIsThere(name, player);
+
         System.out.println(player.getName() + " is going against the " + computer.getName());
         pvcBattle(player, computer);
     };
@@ -189,13 +194,22 @@ public class RockPaperScissorsGame {
     public static void history() {
 
 
-//        System.out.println("To view a player's wins, type their name");
-//        String name = choice.nextLine();
-//
-//        if(listOfPlayers.containsKey(name)){
-//            System.out.println(listOfPlayers.get(name).getName() + " has won " + listOfPlayers.get(name).getWins() + " time");
-//        }
+        System.out.println("To view a player's game logs, type their name");
+        String name = choice.nextLine();
 
+        if(players.containsKey(name)){
+            //System.out.println("WINS Log: " + "\n" + players.get(name).getWinsGameLog().forEach(log->); + "\n LOSS Log: " + "\n" + players.get(name).getLossGameLog());
+            System.out.println("WINS Log: ");
+            players.get(name).getWinsGameLog().forEach(log-> System.out.println(log));
+            System.out.println("LOSS log: ");
+            players.get(name).getLossGameLog().forEach(log-> System.out.println(log));
+
+        }
+        else{
+            System.out.println("This player hasn't played today, going to main menu ");
+            menu();
+
+        }
 
 
     }
@@ -209,17 +223,11 @@ public class RockPaperScissorsGame {
         Character player1 = new Human();
         System.out.println("Welcome to Rock, Paper, Scissors!");
         menu();
-//        player1.listsInializier();
-//        player1.addToLossGameLog("Test");
-//        player1.addToLossGameLog("Test2");
-//        System.out.println(player1.getLossGameLog());
-//        System.out.println("im here");
-//        for (String s: player1.getLossGameLog()) {
-//            System.out.println(s);
+
 
         }
 
         }
 
-    //}
+
 
