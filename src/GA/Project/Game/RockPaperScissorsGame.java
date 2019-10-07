@@ -4,6 +4,8 @@ import GA.Project.Players.CPU;
 import GA.Project.Players.Character;
 import GA.Project.Players.Human;
 
+
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class RockPaperScissorsGame {
@@ -26,9 +28,7 @@ public class RockPaperScissorsGame {
             play();
 
         }
-
     }
-
     public static void playerVSPlayer(){
         Character playerOne = new Human(); //Made Character for DRY-ness seen with battle function
         Character playerTwo = new Human();
@@ -78,7 +78,7 @@ public class RockPaperScissorsGame {
     //make this return a string -- who won, their choice as well, and in main add the return of this func to an arraylist for history
     //also need to add invalid input exception
     public static void battle(String player1Move, String player2Move, Character player1, Character player2){
-        boolean anotherRound = true;
+
         Scanner input = new Scanner(System.in);
 
             System.out.println(player1.getName() + " has chosen " + player1Move + ", while " + player2.getName() + " has chosen " + player2Move);
@@ -87,13 +87,16 @@ public class RockPaperScissorsGame {
                 System.out.println("The same move was chosen");
             } else if ((player1Move.equals("rock") && player2Move.equals("paper")) || (player1Move.equals("scissors") && player2Move.equals("rock")) || (player1Move.equals("paper") && player2Move.equals("scissors"))) {
                 System.out.println(player2.getName() + " has won!");
+                player2.setWins(player2.getWins() + 1);
             } else if ((player2Move.equals("rock") && player1Move.equals("paper")) || (player2Move.equals("scissors") && player1Move.equals("rock")) || (player2Move.equals("paper") && player1Move.equals("scissors"))) {
                 System.out.println(player1.getName() + " has won!");
+                player1.setWins(player2.getWins() + 1);
             }
 
             System.out.println("Another round? Type: 'y' or 'n");
             String answer = input.nextLine();
             if(answer.toLowerCase().equals("y")){
+
                 if(player2.getName().equals("CPU")){
                     pvcBattle(player1, player2);
                 }
@@ -101,11 +104,17 @@ public class RockPaperScissorsGame {
                     pvpBattle(player1, player2);
                 }
             }
+            else if (answer.toLowerCase().equals("n")){
+
+                System.out.println("Results:" + "\n" + player1.getName()+ " has won " + player1.getWins() + " times" + "\n" + player2.getName()+ " has won " + player2.getWins() + " times" + "\nEnd of Match, going to MAIN MENU!");
+                menu();
+            }
             else{
-                System.out.println("End of Match!");
+                System.out.println("Invalid option entered, going to main menu");
+                menu();
+
             }
     }
-
 
     public static void menu() {
         System.out.println("MAIN MENU \n======\n 1. Type 'play' to  play \n 2. Type 'history' to view your game history.\n 3. Type 'quit' to stop playing. ");
@@ -128,9 +137,13 @@ public class RockPaperScissorsGame {
 
     }
 
-
     public static void history() {
         System.out.println("in history successfully");
+
+        //show wins/losses for player 1, player 2, CPU
+        //Arraylist of objects where we foreach it
+
+        //can show how many times player chose a certain move and won
 
     }
 
