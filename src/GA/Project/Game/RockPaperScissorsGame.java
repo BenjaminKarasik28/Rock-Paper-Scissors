@@ -84,6 +84,7 @@ public class RockPaperScissorsGame {
     };
 
     public static void pvpBattle(Character p1, Character p2){
+        System.out.println("You have five attempts to choose a valid move");
         System.out.println(p1.getName() + ", make a choice: rock, paper, scissors");
         p1.setChoice(p1.makeChoice());
         System.out.println(p2.getName() + ", make a choice: rock, paper, scissors");
@@ -111,6 +112,7 @@ public class RockPaperScissorsGame {
     };
 
     public static void pvcBattle(Character player, Character cpu){
+        System.out.println("You have five attempts to choose a valid move");
         System.out.println(player.getName() + ", make a choice: rock, paper, scissors");
         player.setChoice(player.makeChoice());
         cpu.setChoice(cpu.makeChoice());
@@ -234,7 +236,6 @@ public class RockPaperScissorsGame {
                 System.out.println("Invalid option entered, going to main menu");
                 menu();
             }
-
         }
         else{
             System.out.println("This player hasn't played today, going to main menu");
@@ -247,12 +248,6 @@ public class RockPaperScissorsGame {
         System.out.println("Thanks for playing! \nCopyRight: a Benjamin Karasik program");
     }
 
-    public static void main(String[] args) {
-
-        System.out.println("Welcome to Rock, Paper, Scissors!");
-        menu();
-
-        }
  }
 
 
