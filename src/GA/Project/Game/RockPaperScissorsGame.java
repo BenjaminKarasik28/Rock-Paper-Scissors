@@ -34,8 +34,6 @@ public class RockPaperScissorsGame {
         }
     }
 
-    //allows only one name per player per session so player can see their game logs
-    //assigns name to player if that name isn't in the session MAP
     public static void checkIfNameIsThere(String nameToCheck, Character player){
         boolean flag = false;
         while(!flag) {
@@ -99,6 +97,7 @@ public class RockPaperScissorsGame {
         Character computer = new CPU();
         player.listsInializier();
         computer.listsInializier();
+        players.put(computer.getName(), computer);
 
         System.out.println("You have chosen Player vs. Computer!\nEnter your name: ");
         String name = choice.nextLine();
@@ -224,7 +223,7 @@ public class RockPaperScissorsGame {
             else {
                 players.get(name).getLossGameLog().forEach(log -> System.out.println(log));
             }
-            System.out.println("Go to menu or history?");
+            System.out.println("Go to menu or history? \nType 'menu' for menu Or 'history' for history");
             String input = choice.nextLine();
             if (input.toLowerCase().equals("menu")){
                 menu();
@@ -245,7 +244,7 @@ public class RockPaperScissorsGame {
     }
 
     public static void quit() {
-        System.out.println("Thanks for playing! \nCopyRight: a Benjamin Karasik program");
+        System.out.println("Thanks for playing! \nCopy Right: a Benjamin Karasik program");
     }
 
  }
