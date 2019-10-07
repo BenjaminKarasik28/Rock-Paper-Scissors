@@ -4,7 +4,6 @@ import java.util.Random;
 
 public class CPU extends Character {
 
-
     public CPU(){
         this.name = "CPU";
     }
