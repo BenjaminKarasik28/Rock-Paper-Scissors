@@ -39,7 +39,7 @@ public class RockPaperScissorsGame {
     public static void checkIfNameIsThere(String nameToCheck, Character player){
         boolean flag = false;
         while(!flag) {
-            if (!players.containsKey(nameToCheck)) {
+            if (!players.containsKey(nameToCheck.toLowerCase())) {
                 players.put(nameToCheck, player);
                 flag = true;
             } else {
@@ -51,6 +51,8 @@ public class RockPaperScissorsGame {
         player.setName(nameToCheck);
 
     }
+
+
     public static void playerVSPlayer(){
 
         Character playerOne = new Human(); //Made Character for DRY-ness seen with battle function
@@ -61,11 +63,19 @@ public class RockPaperScissorsGame {
 
         System.out.println("You have chosen Player vs. Player!\nEnter player 1's name: ");
         String name = choice.nextLine();
+
         checkIfNameIsThere(name, playerOne);
 
         System.out.println("Enter player 2's name: ");
         name = choice.nextLine();
+
         checkIfNameIsThere(name, playerTwo);
+        if(playerOne.getName().equals("") ){
+            playerOne.setName("default Player One Name");
+        }
+        if(playerTwo.getName().equals("") ){
+            playerTwo.setName("default Player Two Name");
+        }
 
         System.out.println("Your two players are: " + playerOne.getName() + " and " + playerTwo.getName());
 
@@ -79,10 +89,6 @@ public class RockPaperScissorsGame {
         System.out.println(p2.getName() + ", make a choice: rock, paper, scissors");
         p2.setChoice(p2.makeChoice());
 
-//        if(!p1.getChoice().equals("rock") || !p1.getChoice().equals("paper") || !p1.getChoice().equals("scissors") || !p2.getChoice().equals("rock") || !p2.getChoice().equals("paper") || !p2.getChoice().equals("scissors")){
-//            System.out.println("A player made an invalid choice, go again");
-//            pvpBattle( p1, p2);
-//        }
         battle(p1.getChoice(), p2.getChoice(), p1, p2);
 
     }
@@ -97,6 +103,9 @@ public class RockPaperScissorsGame {
         String name = choice.nextLine();
         checkIfNameIsThere(name, player);
 
+        if(player.getName().equals("")){
+            player.setName("Default Player Name");
+        }
         System.out.println(player.getName() + " is going against the " + computer.getName());
         pvcBattle(player, computer);
     };
@@ -198,36 +207,53 @@ public class RockPaperScissorsGame {
         String name = choice.nextLine();
 
         if(players.containsKey(name)){
-            //System.out.println("WINS Log: " + "\n" + players.get(name).getWinsGameLog().forEach(log->); + "\n LOSS Log: " + "\n" + players.get(name).getLossGameLog());
             System.out.println("WINS Log: ");
-            players.get(name).getWinsGameLog().forEach(log-> System.out.println(log));
+            if(players.get(name).getWinsGameLog().isEmpty()){
+                System.out.println("No wins :(");
+            }
+            else {
+                players.get(name).getWinsGameLog().forEach(log -> System.out.println(log));
+            }
             System.out.println("LOSS log: ");
-            players.get(name).getLossGameLog().forEach(log-> System.out.println(log));
+
+            if(players.get(name).getLossGameLog().isEmpty()){
+                System.out.println("No losses :)");
+            }
+            else {
+                players.get(name).getLossGameLog().forEach(log -> System.out.println(log));
+            }
+            System.out.println("Go to menu or history?");
+            String input = choice.nextLine();
+            if (input.toLowerCase().equals("menu")){
+                menu();
+            }
+            else if(input.toLowerCase().equals("history")) {
+                history();
+            }
+            else {
+                System.out.println("Invalid option entered, going to main menu");
+                menu();
+            }
 
         }
         else{
-            System.out.println("This player hasn't played today, going to main menu ");
+            System.out.println("This player hasn't played today, going to main menu");
             menu();
-
         }
 
-
     }
-
 
     public static void quit() {
         System.out.println("Thanks for playing! \nCopyRight: a Benjamin Karasik program");
     }
 
     public static void main(String[] args) {
-        Character player1 = new Human();
+
         System.out.println("Welcome to Rock, Paper, Scissors!");
         menu();
 
-
         }
-
-        }
+ }
 
 
 
