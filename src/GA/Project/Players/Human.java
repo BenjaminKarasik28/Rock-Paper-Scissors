@@ -7,7 +7,11 @@ import java.util.Scanner;
 public class Human extends Character {
 
 
-
+    /*
+    * Gives user 5 chances to make a valid battle choice
+    * if valid choice isn't chosen, go back to menu
+    * else move on with game
+    * */
     @Override
     public String makeChoice() {
 

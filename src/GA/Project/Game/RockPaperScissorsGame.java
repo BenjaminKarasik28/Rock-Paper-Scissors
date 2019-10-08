@@ -15,9 +15,11 @@ public class RockPaperScissorsGame {
     private static HashMap<String, Character>  players = new HashMap<>();
 
 
-
+    /*
+    * Asks for user input. Gives user option to play against computer or another player
+    * */
     public static void play(){
-        //need some exception handling for invalid input
+
         System.out.println("Do you want to play against a Computer or another person?\nType 'C' for computer or 'P' for person");
         String input = choice.nextLine().toLowerCase();
 
@@ -33,7 +35,10 @@ public class RockPaperScissorsGame {
 
         }
     }
-
+    /*
+    * Use hashmap to store player names as key and Character objects as values
+    * Used to filter duplicate name entries as well as access players in the history() method
+    * */
     public static void checkIfNameIsThere(String nameToCheck, Character player){
         boolean flag = false;
         while(!flag) {
@@ -47,10 +52,14 @@ public class RockPaperScissorsGame {
             }
         }
         player.setName(nameToCheck);
-
     }
 
-
+    /*
+    * Instantiates and initializes two human objects. Initializes their game logs as well.
+    * Checks if names exist in hashmap with checkIfNameIsThere() call.
+    * If user enters null String for either name, default name is given.
+    * calls pvpBattle().
+    * */
     public static void playerVSPlayer(){
 
         Character playerOne = new Human(); //Made Character for DRY-ness seen with battle function
@@ -79,8 +88,11 @@ public class RockPaperScissorsGame {
 
         pvpBattle(playerOne, playerTwo);
 
-    };
-
+    }
+    /*
+    * Sets choices for both players using their makeChoice() methods
+    * calls battle()
+    * */
     public static void pvpBattle(Character p1, Character p2){
         System.out.println("You have five attempts to choose a valid move");
         System.out.println(p1.getName() + ", make a choice: rock, paper, scissors");
@@ -91,7 +103,12 @@ public class RockPaperScissorsGame {
         battle(p1.getChoice(), p2.getChoice(), p1, p2);
 
     }
-
+    /*
+     * Instantiates and initializes a human and computer object. Initializes their game logs as well.
+     * Checks if human.getName() exist in hashmap with checkIfNameIsThere() call.
+     * If user enters null String for player name, default name is given.
+     * calls pvcBattle().
+     * */
     public static void playerVSCPU(){
         Character player = new Human();
         Character computer = new CPU();
@@ -109,7 +126,10 @@ public class RockPaperScissorsGame {
         System.out.println(player.getName() + " is going against the " + computer.getName());
         pvcBattle(player, computer);
     };
-
+    /*
+     * Sets choices for both player and CPU using their makeChoice() methods
+     * calls battle()
+     * */
     public static void pvcBattle(Character player, Character cpu){
         System.out.println("You have five attempts to choose a valid move");
         System.out.println(player.getName() + ", make a choice: rock, paper, scissors");
@@ -120,12 +140,21 @@ public class RockPaperScissorsGame {
 
     }
 
+    /*
+    * Adds game log to the players in a round detailing who won/lost and moves played.
+    * */
     public static void addToGameLogs(Character winner, Character loser, String winnerMove, String loserMove){
         winner.addTowWinGameLog(winner.getName() + " played: " + winnerMove + " and beat " + loser.getName() + ", who played " + loserMove);
         loser.addToLossGameLog(loser.getName() + " played: " + loserMove + " and lost to " + winner.getName() + ", who played " + winnerMove);
 
     }
-
+    /*
+    * Plays a round of Rock, Paper, Scissors between player 1 and player 2.
+    * Sets winning player wins and game logs for both players after the round
+    * Player gets the option to play another round
+    * If player decides to play another round, check if player 2 is a CPU, if yes call pvcBattle() , else call pvpbattle()
+    * If player decides to not play, they are taken to menu.
+    * */
     public static void battle(String player1Move, String player2Move, Character player1, Character player2){
 
         Scanner input = new Scanner(System.in);
@@ -167,10 +196,6 @@ public class RockPaperScissorsGame {
             else if (answer.toLowerCase().equals("n")){
 
                 System.out.println("Results:" + "\n" + player1.getName()+ " has won " + player1.getWins() + " times" + "\n" + player2.getName()+ " has won " + player2.getWins() + " times" + "\nEnd of Match, going to MAIN MENU!");
-
-                for (String s: player1.getLossGameLog()) {
-                       System.out.println(s);
-                }
                 menu();
             }
             else{
@@ -179,7 +204,10 @@ public class RockPaperScissorsGame {
 
             }
     }
-
+/*
+* Takes user input, calls various functions based off that input
+* If invalid option chosen, call menu() again
+* */
     public static void menu() {
         System.out.println("MAIN MENU \n======\n 1. Type 'play' to  play \n 2. Type 'history' to view your game history.\n 3. Type 'quit' to stop playing. ");
         String input = choice.nextLine().toLowerCase();
@@ -200,9 +228,13 @@ public class RockPaperScissorsGame {
             }
 
     }
-
+    /*
+    * Asks user for player name with command line input
+    * Checks hashmap if player is there and if they are display their game logs
+    * Else, display message that a player with that name has not played
+    * user get's option to go to menu or history again
+    * */
     public static void history() {
-
 
         System.out.println("To view a player's game logs, type their name");
         String name = choice.nextLine();
@@ -213,7 +245,8 @@ public class RockPaperScissorsGame {
                 System.out.println("No wins :(");
             }
             else {
-                players.get(name).getWinsGameLog().forEach(log -> System.out.println(log));
+                players.get(name).getWinsGameLog().forEach(System.out::println);
+                System.out.println(players.get(name).getName() + "has won " + players.get(name).getWins() + " times");
             }
             System.out.println("LOSS log: ");
 
@@ -242,7 +275,9 @@ public class RockPaperScissorsGame {
         }
 
     }
-
+    /*
+    * Ends the program
+    * */
     public static void quit() {
         System.out.println("Thanks for playing! \nCopy Right: a Benjamin Karasik program");
     }

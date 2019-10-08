@@ -68,7 +68,7 @@ public abstract class Character {
 
     public abstract String makeChoice(); //returns something from choices either randomly if CPU or by user
 
-    public void listsInializier(){
+    public void listsInializier(){ //initializes game log arrays
         lossGameLog=new ArrayList<>();
         winsGameLog=new ArrayList<>();
     }
